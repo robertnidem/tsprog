@@ -13,6 +13,7 @@ class StoreViewController: UIViewController {
     var cant3 = 0.0
     var cant4 = 0.0
     var cant1 = 0.0
+    var total2 = 0.0
     @IBOutlet weak var lbl1: UILabel!
     
     @IBOutlet weak var lbltotal: UILabel!
@@ -51,14 +52,29 @@ class StoreViewController: UIViewController {
     
     @IBAction func comprar(_ sender: Any) {
         
-        var total = cant1*150+cant2*50+cant3*750+cant4*250
-        if descuento.text == "fanstrava"{
-            total = total/2
+        total2 = cant1*150+cant2*50+cant3*750+cant4*250
+        if descuento.text == "promocode2019"{
+            total2 = total2/2
             
             
         }
-        lbltotal.text = String (total)
+        //lbltotal.text = String (total2)
         
+        if(total2 > 0){
+            performSegue(withIdentifier: "storeSegue", sender: self)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Selecciona almenos un producto", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            
+            self.present(alert,animated: true)
+            
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "storeSegue"){
+            let nextView = segue.destination as! Store2ViewController
+            nextView.total = total2
+        }
     }
     
     /*

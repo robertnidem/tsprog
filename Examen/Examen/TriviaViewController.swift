@@ -9,7 +9,24 @@
 import UIKit
 
 class TriviaViewController: UIViewController {
+    
+    var state = 0
 
+    @IBOutlet weak var switch2: UISwitch!
+    @IBOutlet weak var switch3: UISwitch!
+    @IBOutlet weak var switch4: UISwitch!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(switch4.isOn && switch2.isOn && switch3.isOn){
+            state = 1
+        } else{
+            state = 0
+        }
+        if(segue.identifier == "passSegue"){
+            let nextView = segue.destination as! Trvie2ViewController
+            nextView.estado = state
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
